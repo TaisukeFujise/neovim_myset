@@ -11,7 +11,7 @@ return
                     options={transparency=false},
                     styles={comments="italic"},
                 })
-            vim.cmd.colorscheme("onedark_dark")
+            vim.cmd("colorscheme onedark_dark")
         end,
     },
 	{"nvim-treesitter/nvim-treesitter",
