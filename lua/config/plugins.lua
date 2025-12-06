@@ -35,4 +35,70 @@ return
                 vim.cmd("colorscheme moonfly")
             end,
     },
+    {"romgrk/barbar.nvim",
+        dependencies={
+                "lewis6991/gitsigns.nvim",
+                "nvim-tree/nvim-web-devicons",
+            },
+            init=function()
+                vim.g.barbar_auto_setup=false
+            end,
+            opts={
+                animation=true,
+            },
+            version='^1.0.0',
+    },
+    {"akinsho/toggleterm.nvim",
+        version="*",
+        config = function()
+            require("toggleterm").setup({
+                open_mapping = [[<C-\>]], 
+                direction = "horizontal",
+            })
+
+            -- Lazygitの設定
+            local Terminal = require("toggleterm.terminal").Terminal
+            local lazygit = Terminal:new({
+                cmd = "lazygit",
+                hidden = true,
+                direction = "float",
+                float_opts = {
+                    border = "curved", -- 枠線を丸くする
+                    width = 100000,    -- 最大幅
+                    height = 100000,   -- 最大高さ
+                },
+                on_open = function(_)
+                    vim.cmd("startinsert!") -- 開いたらすぐ操作可能にする
+                end,
+                on_close = function(_)
+                    vim.cmd("startinsert!")
+                end,
+            })
+
+            -- トグル用の関数を定義
+            function _lazygit_toggle()
+                lazygit:toggle()
+            end
+
+            -- キーマッピングを設定 (leader + lg)
+            vim.api.nvim_set_keymap("n", "<leader>lg", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+        end
+    },
+    {"nvim-telescope/telescope.nvim",
+        dependencies={"nvim-lua/plenary.nvim"},
+        cmd="Telescope",
+        keys={
+            {"<leader>ff", "<cmd>Telescope find_files<cr>", desc="Find files"},
+            {"<leader>fg", "<cmd>Telescope live_grep<cr>", desc="Live grep"},
+        },
+        opts={
+            defaults={
+                prompt_prefix="> ",
+                selection_prefix="> ",
+                sorting_strategy="ascending",
+                layout_strategy="horizontal",
+                layout_config={width=0.9, height=0.8},
+            },
+        },
+    },
 }
