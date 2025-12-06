@@ -2,18 +2,7 @@ return
 {
 	{"windwp/nvim-autopairs", config=true},
 	{"lewis6991/gitsigns.nvim", config=true},
-    {"olimorris/onedarkpro.nvim",
-        lazy=false,
-        priority=1000,
-        config=function()
-            require("onedarkpro").setup({
-                    colorscheme="onedarkpro",
-                    options={transparency=false},
-                    styles={comments="italic"},
-                })
-            vim.cmd("colorscheme onedark_dark")
-        end,
-    },
+       
 	{"nvim-treesitter/nvim-treesitter",
 		build=":TSUpdate",
 		config=function()
@@ -36,5 +25,14 @@ return
   config = function(_, opts)
     require("42header").setup(opts)
   end,
+    },
+    {"bluz71/vim-moonfly-colors",
+            name="moonfly",
+            lazy=false,
+            priority=1000,
+            config=function()
+                vim.g.moonflyCursorColor=true
+                vim.cmd("colorscheme moonfly")
+            end,
     },
 }
