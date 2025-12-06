@@ -3,7 +3,7 @@ return
 	{"windwp/nvim-autopairs", config=true},
 	{"lewis6991/gitsigns.nvim", config=true},
     {"olimorris/onedarkpro.nvim",
-        laze=false,
+        lazy=false,
         priority=1000,
         config=function()
             require("onedarkpro").setup({
