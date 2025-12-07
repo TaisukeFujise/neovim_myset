@@ -142,5 +142,6 @@ return
                 severity_sort = true,
             })
         end,
-    }
+    },
+	{"wakatime/vim-wakatime", lazy=false},
 }
