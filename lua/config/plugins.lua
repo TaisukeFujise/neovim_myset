@@ -43,10 +43,21 @@ return
             init=function()
                 vim.g.barbar_auto_setup=false
             end,
-            opts={
-                animation=true,
+        opts = {
+            animation = true,
+        -- アイコンを無効化またはテキストに変更する設定
+            icons = {
+            -- ファイルタイプアイコン（nvim-web-devicons）を無効化
+            filetype = { enabled = false },
+            
+            -- バッファの状態を示すアイコンを一般的な記号に変更
+            buffer_index = true, -- バッファ番号を表示するかどうか
+            modified = { button = '[+]' },
+            pinned = { button = '[Pin]' },
+            -- 必要に応じて他のアイコンもテキストに置き換える
             },
-            version='^1.0.0',
+        },
+        version='^1.0.0',
     },
     {"akinsho/toggleterm.nvim",
         version="*",
@@ -101,4 +112,12 @@ return
             },
         },
     },
+    {"neovim/nvim-lspconfig",
+        tag="v1.0.0",
+        config=function()
+            local lspconfig=require("lspconfig")
+            lspconfig.lua_ls.setup({})
+            lspconfig.clangd.setup({})
+        end,
+    }
 }
