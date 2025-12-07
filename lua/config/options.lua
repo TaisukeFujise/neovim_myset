@@ -6,7 +6,7 @@ opt.cursorline = true
 opt.termguicolors = true
 opt.background = "dark"
 
-opt.expandtab = true
+opt.expandtab = false
 opt.tabstop = 4
 opt.shiftwidth = 4
 

@@ -113,11 +113,34 @@ return
         },
     },
     {"neovim/nvim-lspconfig",
-        tag="v1.0.0",
-        config=function()
-            local lspconfig=require("lspconfig")
-            lspconfig.lua_ls.setup({})
+        tag = "v1.0.0",
+        config = function()
+            local lspconfig = require("lspconfig")
+
+            -- 1. Lua LSの設定 (vim変数を認識させる)
+            lspconfig.lua_ls.setup({
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { "vim" },
+                        },
+                    },
+                },
+            })
+
+            -- 2. C/C++ (clangd) の設定
             lspconfig.clangd.setup({})
+
+            -- 3. エラー表示の見た目設定
+            vim.diagnostic.config({
+                virtual_text = {
+                    prefix = '✖ '
+                },
+                signs = true,
+                underline = true,
+                update_in_insert = false,
+                severity_sort = true,
+            })
         end,
     }
 }
