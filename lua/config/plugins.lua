@@ -46,7 +46,7 @@ return
             animation = true,
             icons = {
             filetype = { enabled = true },
-			separator={left='【', right='】'},
+			-- separator={left='|', right='|'},
             buffer_index = true,
 			button = 'X',
             modified = { button = '●' },
@@ -157,7 +157,6 @@ return
             })
         end,
     },
-	{"wakatime/vim-wakatime", lazy=false},
 	{
   		'stevearc/oil.nvim',
   		---@module 'oil'
@@ -205,11 +204,11 @@ return
         lazy = false,
         priority = 1000,
         keys = {
-            { "<leader>ff", function() require("snacks").picker.files()    end, desc = "Find files" },
-            { "<leader>fg", function() require("snacks").picker.grep()     end, desc = "Live grep" },
+            { "<leader>ff", function() require("snacks").picker.files({cwd=vim.fn.expand("%:p:h")})    end, desc = "Find files" },
+            { "<leader>fg", function() require("snacks").picker.grep({cwd=vim.fn.expand("%:p:h")})     end, desc = "Live grep" },
             { "<leader>fb", function() require("snacks").picker.buffers()  end, desc = "Buffers" },
             { "<leader>fr", function() require("snacks").picker.recent()   end, desc = "Recent files" },
-            { "<leader>fe", function() require("snacks").picker.explorer() end, desc = "Explorer" },
+            { "<leader>fe", function() require("snacks").picker.explorer({cwd=vim.fn.expand("%:p:h")}) end, desc = "Explorer" },
         },
         ---@type snacks.Config
         opts = {
@@ -218,10 +217,10 @@ return
                 row = 10,
                 preset = {
                     keys = {
-                        { icon = " ", key = "f", desc = "files",    action = function() require("snacks").picker.files()    end },
+                        { icon = " ", key = "f", desc = "files",    action = function() require("snacks").picker.files({cwd=vim.fn.expand("%:p:h")})    end },
                         { icon = " ", key = "r", desc = "recent",   action = function() require("snacks").picker.recent()   end },
-                        { icon = " ", key = "g", desc = "grep",     action = function() require("snacks").picker.grep()     end },
-                        { icon = " ", key = "e", desc = "explorer", action = function() require("snacks").picker.explorer() end },
+                        { icon = " ", key = "g", desc = "grep",     action = function() require("snacks").picker.grep({cwd=vim.fn.expand("%:p:h")})     end },
+                        { icon = " ", key = "e", desc = "explorer", action = function() require("snacks").picker.explorer({cwd=vim.fn.expand("%:p:h")}) end },
                         { icon = " ", key = "q", desc = "quit",     action = ":qa" },
                     },
                 },
