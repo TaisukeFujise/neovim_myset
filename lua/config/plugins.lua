@@ -71,11 +71,15 @@ return
 						end,
 					}
             })
-
+			vim.keymap.set("n", "<C-\\>", function()
+				local dir = vim.fn.expand("%:p:h")
+				require("toggleterm").toggle(0, "float", dir)
+			end, {noremap=true, silent=true, desc="ToggleTerm current dir"})
             -- Lazygitの設定
             local Terminal = require("toggleterm.terminal").Terminal
             local lazygit = Terminal:new({
                 cmd = "lazygit",
+				dir = "git_dir",
                 hidden = true,
                 direction = "float",
                 float_opts = {
