@@ -1,8 +1,7 @@
-return 
+return
 {
 	{"windwp/nvim-autopairs", config=true},
 	{"lewis6991/gitsigns.nvim", config=true},
-       
 	{"nvim-treesitter/nvim-treesitter",
 		build=":TSUpdate",
 		config=function()
@@ -20,7 +19,6 @@ return
         auto_update = true, -- Update header when saving.
         user = "tafujise", -- Your user.
         mail = "tafujise@student.42jp", -- Your mail.
-    -- add other options.
         },
   config = function(_, opts)
     require("42header").setup(opts)
@@ -39,22 +37,20 @@ return
         dependencies={
                 "lewis6991/gitsigns.nvim",
                 "nvim-tree/nvim-web-devicons",
+				enabled=false,
             },
             init=function()
                 vim.g.barbar_auto_setup=false
             end,
         opts = {
             animation = true,
-        -- アイコンを無効化またはテキストに変更する設定
             icons = {
-            -- ファイルタイプアイコン（nvim-web-devicons）を無効化
             filetype = { enabled = false },
-            
-            -- バッファの状態を示すアイコンを一般的な記号に変更
-            buffer_index = true, -- バッファ番号を表示するかどうか
+			button='[×]',
+			separator={left='|', right=''},
+            buffer_index = true,
             modified = { button = '[+]' },
             pinned = { button = '[Pin]' },
-            -- 必要に応じて他のアイコンもテキストに置き換える
             },
         },
         version='^1.0.0',
@@ -63,8 +59,18 @@ return
         version="*",
         config = function()
             require("toggleterm").setup({
-                open_mapping = [[<C-\>]], 
-                direction = "horizontal",
+                open_mapping = [[<C-\>]],
+                direction = "float",
+					float_opts = {
+						border = "curved",
+						winblend = 3,
+						width= function()
+							return math.floor(vim.o.columns * 0.7)
+						end,
+						height = function()
+							return math.floor(vim.o.lines * 0.4)
+						end,
+					}
             })
 
             -- Lazygitの設定
@@ -75,8 +81,12 @@ return
                 direction = "float",
                 float_opts = {
                     border = "curved", -- 枠線を丸くする
-                    width = 100000,    -- 最大幅
-                    height = 100000,   -- 最大高さ
+                    width = function()
+						return math.floor(vim.o.columns * 0.9)    -- 最大幅
+					end,
+                    height = function()
+						return math.floor(vim.o.lines * 0.9)   -- 最大高さ
+					end,
                 },
                 on_open = function(_)
                     vim.cmd("startinsert!") -- 開いたらすぐ操作可能にする
@@ -144,4 +154,40 @@ return
         end,
     },
 	{"wakatime/vim-wakatime", lazy=false},
+	{
+  		'stevearc/oil.nvim',
+  		---@module 'oil'
+  		---@type oil.SetupOpts
+  		opts = {
+				columns={
+					"size",
+					"mtime",
+				}
+			},
+  		lazy = false,
+	},
+	{"folke/noice.nvim",
+			event="VeryLazy",
+			opts={
+				cmdline={
+					format={
+						cmdline={icon=">"},
+						search_down={icon="/?"},
+						search_up={icon="?"},
+						filter={icon="$"},
+						lua={icon="lua"},
+						help={icon="?"},
+					}
+				},
+				popupmenu={
+					kind_icons=false,
+					enabled=true,
+					backend="cmp",
+				},
+			},
+			dependencies={
+				{"MunifTanjim/nui.nvim", pin=true},
+				"rcarriga/nvim-notify",
+			},
+	},
 }
