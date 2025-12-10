@@ -242,7 +242,7 @@ return
 				require("nvim-tree").setup{
 					update_focused_file={
 						enable=true,
-						update_root=false,
+						update_root=true,
 						ignore_list={},
 					},
 					git={
@@ -257,6 +257,9 @@ return
 						group_empty=true,
 						highlight_git=true,
 						highlight_opened_files="all",
+					},
+					filters={
+						dotfiles=true,
 					},
 				}
 			end,
