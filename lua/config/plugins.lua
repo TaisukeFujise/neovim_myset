@@ -37,7 +37,6 @@ return
         dependencies={
                 "lewis6991/gitsigns.nvim",
                 "nvim-tree/nvim-web-devicons",
-				enabled=false,
             },
             init=function()
                 vim.g.barbar_auto_setup=false
@@ -45,12 +44,12 @@ return
         opts = {
             animation = true,
             icons = {
-            filetype = { enabled = false },
-			button='[×]',
-			separator={left='|', right=''},
+            filetype = { enabled = true },
+			separator={left='【', right='】'},
             buffer_index = true,
-            modified = { button = '[+]' },
-            pinned = { button = '[Pin]' },
+			button = 'X',
+            modified = { button = '●' },
+            pinned = { button = '' },
             },
         },
         version='^1.0.0',
@@ -109,8 +108,8 @@ return
         dependencies={"nvim-lua/plenary.nvim"},
         cmd="Telescope",
         keys={
-            {"<leader>ff", "<cmd>Telescope find_files<cr>", desc="Find files"},
-            {"<leader>fg", "<cmd>Telescope live_grep<cr>", desc="Live grep"},
+            -- {"<leader>ff", "<cmd>Telescope find_files<cr>", desc="Find files"},
+            -- {"<leader>fg", "<cmd>Telescope live_grep<cr>", desc="Live grep"},
         },
         opts={
             defaults={
@@ -160,8 +159,7 @@ return
   		---@type oil.SetupOpts
   		opts = {
 				columns={
-					"size",
-					"mtime",
+					"icon",
 				}
 			},
   		lazy = false,
@@ -189,5 +187,78 @@ return
 				{"MunifTanjim/nui.nvim", pin=true},
 				"rcarriga/nvim-notify",
 			},
+	},
+	{"rainbowhxch/accelerated-jk.nvim",
+		opts={},
+		keys={
+				{"j", "<Plug>(accelerated_jk_gj)"},
+				{"k", "<Plug>(accelerated_jk_gk)"},
+			},
+	},
+	{
+        "folke/snacks.nvim",
+        lazy = false,
+        priority = 1000,
+        keys = {
+            { "<leader>ff", function() require("snacks").picker.files()    end, desc = "Find files" },
+            { "<leader>fg", function() require("snacks").picker.grep()     end, desc = "Live grep" },
+            { "<leader>fb", function() require("snacks").picker.buffers()  end, desc = "Buffers" },
+            { "<leader>fr", function() require("snacks").picker.recent()   end, desc = "Recent files" },
+            { "<leader>fe", function() require("snacks").picker.explorer() end, desc = "Explorer" },
+        },
+        ---@type snacks.Config
+        opts = {
+            dashboard = {
+                enabled = true,
+                row = 10,
+                preset = {
+                    keys = {
+                        { icon = " ", key = "f", desc = "files",    action = function() require("snacks").picker.files()    end },
+                        { icon = " ", key = "r", desc = "recent",   action = function() require("snacks").picker.recent()   end },
+                        { icon = " ", key = "g", desc = "grep",     action = function() require("snacks").picker.grep()     end },
+                        { icon = " ", key = "e", desc = "explorer", action = function() require("snacks").picker.explorer() end },
+                        { icon = " ", key = "q", desc = "quit",     action = ":qa" },
+                    },
+                },
+            },
+            picker = {
+                layout = {
+                    preset = "vertical",
+                },
+            },
+        },
+    },
+	{"nvim-tree/nvim-tree.lua",
+			version="*",
+			lazy=false,
+			dependencies={
+				"nvim-tree/nvim-web-devicons",
+			},
+			keys={
+				{mode="n", "<C-n>", "<cmd>NvimTreeToggle<CR>", desc="NvimTree Toggle"},
+				{mode="n", "<C-m>", "<cmd>NvimTreeFocus<CR>", desc="NvimTree Focus"},
+			},
+			config=function()
+				require("nvim-tree").setup{
+					update_focused_file={
+						enable=true,
+						update_root=false,
+						ignore_list={},
+					},
+					git={
+						enable=true,
+						ignore=true,
+					},
+					view={
+						width=30,
+						side="left",
+					},
+					renderer={
+						group_empty=true,
+						highlight_git=true,
+						highlight_opened_files="all",
+					},
+				}
+			end,
 	},
 }
