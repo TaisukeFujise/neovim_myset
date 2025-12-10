@@ -1,3 +1,4 @@
+# dotfiles
 - `init.lua`:
 	リーダーキーを設定し、`config.lazy` `config.options` `config.keymaps` `config.plugins` を読み込むエントリポイント。
 - `lua/config/lazy.lua`:
