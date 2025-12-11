@@ -1,5 +1,16 @@
 local opt=vim.opt
 
+opt.sessionoptions = {
+		"blank",
+		"buffers",
+		"curdir",
+		"folds",
+		"help",
+		"tabpages",
+		"winsize",
+		"terminal",
+}
+
 opt.relativenumber = true
 
 opt.cursorline = true
